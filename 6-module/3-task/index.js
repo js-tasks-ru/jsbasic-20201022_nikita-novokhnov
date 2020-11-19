@@ -37,33 +37,31 @@ export default class Carousel {
       </div>
     `;
 
-    var elementCount = 0;
-    var allSlides = slides.length-1;
-
+    this.elementCount = 0;
+    this.allSlides = slides.length-1;
     this.elem.querySelector(".carousel__arrow_left").style.display = "none";
-
-    this.elem.querySelector(".carousel__arrow_right").addEventListener('click', function(event) {
-      elementCount ++;
-      if(elementCount == 1){
+    this.elem.querySelector(".carousel__arrow_right").addEventListener('click', (event) => {
+      this.elementCount ++;
+      if(this.elementCount == 1){
         document.querySelector(".carousel__arrow_left").style.display = "";
       }
     
-      if(elementCount == allSlides){
+      if(this.elementCount == this.allSlides){
         document.querySelector(".carousel__arrow_right").style.display = "none";
       }
-      document.querySelector(".carousel__inner").style.transform = 'translateX(-'+document.querySelector('.carousel__slide').offsetWidth*elementCount+'px)';
+      document.querySelector(".carousel__inner").style.transform = 'translateX(-'+document.querySelector('.carousel__slide').offsetWidth*this.elementCount+'px)';
     });
   
-    this.elem.querySelector(".carousel__arrow_left").addEventListener('click', function(event) {
-      elementCount --;
-      if(elementCount == 0){
+    this.elem.querySelector(".carousel__arrow_left").addEventListener('click', (event) => {
+      this.elementCount --;
+      if(this.elementCount == 0){
         document.querySelector(".carousel__arrow_left").style.display = "none";
       }
     
-      if(elementCount == allSlides - 1){
+      if(this.elementCount == this.allSlides - 1){
         document.querySelector(".carousel__arrow_right").style.display = "";
       }
-      document.querySelector(".carousel__inner").style.transform = 'translateX(-'+document.querySelector('.carousel__slide').offsetWidth*elementCount+'px)';
+      document.querySelector(".carousel__inner").style.transform = 'translateX(-'+document.querySelector('.carousel__slide').offsetWidth*this.elementCount+'px)';
     });
 
     this.elem.addEventListener('click', function(e){
