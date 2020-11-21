@@ -66,7 +66,6 @@ export default class Carousel {
 
     this.elem.addEventListener('click', function(e){
       if(e.target.tagName != "BUTTON" && !e.target.classList.contains("carousel__button")) return;
-      debugger;
       this.dispatchEvent(new CustomEvent("product-add", {
         detail: e.target.parentElement.parentElement.getAttribute("data-id"),
         bubbles: true
