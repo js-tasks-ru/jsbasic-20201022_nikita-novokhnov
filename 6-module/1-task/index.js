@@ -15,52 +15,38 @@
  */
 export default class UserTable {
   constructor(rows) {
-    this.elem = document.createElement('table');
-
-    this.elem.innerHTML = `
+    this.elem =  document.createElement('table');
+    let thead = `
       <thead>
-          <tr>
-            <td>Имя</td>
-            <td>Возраст</td>
-            <td>Зарплата</td>
-            <td>Город</td>
-            <td></td>
-          </tr>
+        <tr>
+          <th>Имя</th>
+          <th>Возраст</th>
+          <th>Зарплата</th>
+          <th>Город</th>
+          <th></th>
+        </tr>
       </thead>
     `;
 
-    let tbody = this.elem.querySelector('tbody');
-
-    let tableInner = rows.map(row => {
-      let cellsWithData = Object.values(row) // для каждого значения из объекта row
-        .map(value => `<td>${value}</td>`) // обернуть его в <td>
-        .join(''); // полученный массив <td>...</td> объединить в одну строку
-
-      return `
-          <tr>
-            ${cellsWithData}
-            <td><button>X</button></td>
-          </tr>
-        `; // возвращаем верстку одной строки
-    }).join('');
-
-    this.elem.innerHTML += `
-      <tbody>
-        ${tableInner}
-      <tbody>
-    `; // оборачиваем полученные строчки в tbody
-
-    this.elem.addEventListener('click', (event) => this.onClick(event));
+    let rowsHandler = '';
+    rows.forEach(function(item,index,array){
+      rowsHandler += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.age}</td>
+          <td>${item.salary}</td>
+          <td>${item.city}</td>
+          <td><button>X</button></td>
+        </tr>
+        `;
+    },this);
+    this.elem.innerHTML += thead;
+    this.elem.innerHTML += rowsHandler;
+    this.elem.addEventListener('click', this.deleteRow);
   }
 
-  onClick(event) {
-    if (event.target.tagName != 'BUTTON') {
-      return;
-    }
-
-    let tr = event.target.closest('tr');
-
-    tr.remove();
+  deleteRow(e){
+    if(e.target.tagName != "BUTTON") return;
+    e.target.parentElement.parentElement.remove();
   }
-
 }
