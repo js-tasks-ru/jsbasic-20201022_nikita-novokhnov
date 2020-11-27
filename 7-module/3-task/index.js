@@ -13,7 +13,6 @@ export default class StepSlider {
     }
   }
   this.elem.innerHTML += `
-    <div class="slider">
       <div class="slider__thumb">
         <span class="slider__value">0</span>
       </div>
@@ -21,10 +20,9 @@ export default class StepSlider {
       <div class="slider__steps">
         ${elements}
       </div>
-    </div>
   `;
 
-  this.elem.querySelector('.slider').addEventListener('click',(e)=>{
+  this.elem.addEventListener('click',(e)=>{
     let left = e.clientX - this.elem.getBoundingClientRect().left;
     let leftRelative = left / this.elem.offsetWidth;
     let approximateValue = leftRelative * (steps - 1);
@@ -40,7 +38,7 @@ export default class StepSlider {
     thumb.style.left = `${valuePercents}%`;
     progress.style.width = `${valuePercents}%`;
 
-    this.elem.querySelector(".slider").dispatchEvent(
+    this.elem.dispatchEvent(
       new CustomEvent('slider-change', {
         detail: value,
         bubbles: true

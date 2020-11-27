@@ -36,7 +36,7 @@ export default class Modal {
   }
 
   setBody(node){
-    this.modal.querySelector('.modal__body').insertAdjacentElement("afterbegin",node);
+    this.modal.querySelector('.modal__body').innerHTML = node.outerHTML;
   }
 
   close(){
