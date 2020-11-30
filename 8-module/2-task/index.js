@@ -27,7 +27,16 @@ export default class ProductGrid {
       </div>`;
 
     this.elem.addEventListener('click', function(e){
-      if(e.target.tagName != "BUTTON" && !e.target.classList.contains("card__button")) return;
+      if(e.target.tagName != "BUTTON" && !e.target.classList.contains("card__button")){
+        if(e.target.tagName == "IMG" && e.target.parentElement.classList.contains("card__button")){
+          this.dispatchEvent(new CustomEvent("product-add", {
+            detail: e.target.closest("div[data-id]").getAttribute('data-id'),
+            bubbles: true
+          }));
+        }else{
+          return;
+        }
+      }
       this.dispatchEvent(new CustomEvent("product-add", {
         detail: product.id,
         bubbles: true
@@ -60,7 +69,7 @@ export default class ProductGrid {
     }
 
     let cards = filteredProducts.map((product) =>{
-      return `<div class="card">
+      return `<div class="card" data-id=${product.id}>
         <div class="card__top">
             <img src="/assets/images/products/${product.image}" class="card__image" alt="product">
             <span class="card__price">€${product.price.toFixed(2)}</span>
